@@ -4,10 +4,8 @@ DRF does not satisfy the property of resource monotonicity. Resource monotonicit
 
 ## Scenario 1
 
-```python
-# main.py
-num_cpus = 9
-num_mems = 18
+```bash
+python3 main.py --num_cpus 9 --num_mems 18
 ```
 
 Result
@@ -20,10 +18,8 @@ User B: 6.0 CPUs and 2.0 GB of memory
 
 ## Scenario 2 (2x Memory)
 
-```python
-# main.py
-num_cpus = 9
-num_mems = 36
+```bash
+python3 main.py --num_cpus 9 --num_mems 36
 ```
 
 Result

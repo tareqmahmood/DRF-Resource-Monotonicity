@@ -35,12 +35,19 @@ This allocation ensures that both users have an equal dominant share of 2/3, mea
 
 
 import cvxpy as cp
+import argparse
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-c", "--num_cpus", required=True, help="CPU demand for User A", type=int)
+ap.add_argument("-m", "--num_mems", required=True, help="Memory demand for User A", type=int)
+args = ap.parse_args()
+
 
 # Define the total resources
-num_cpus = 9
-num_mems = 36
+num_cpus = args.num_cpus # core
+num_mems = args.num_mems # GB
 
-# Define the users' resource demands
+# Define the users' resource demands per task
 cpu_a = 1
 mem_a = 4
 cpu_b = 3
@@ -78,10 +85,10 @@ result = prob.solve()
 print('-----------------------------------')
 print("Number of tasks for User A:", x.value)
 print("Number of tasks for User B:", y.value)
-print("Total CPU usage:", x.value + 3*y.value)
-print("Total memory usage:", 4*x.value + y.value)
-print("Total dominant share for User A:", 2*x.value/9)
-print("Total dominant share for User B:", y.value/3)
+print("Total CPU usage:", cpu_a * x.value + cpu_b * y.value)
+print("Total memory usage:", mem_a * x.value + mem_b * y.value)
+print("Total dominant share for User A:", x.value * dom_share_a)
+print("Total dominant share for User B:", y.value * dom_share_b)
 print("Resource allocation:")
-print("User A: {} CPUs and {} GB of memory".format(x.value, 4*x.value))
-print("User B: {} CPUs and {} GB of memory".format(3*y.value, y.value))
+print("User A: {} CPUs and {} GB of memory".format(cpu_a * x.value, mem_a * x.value))
+print("User B: {} CPUs and {} GB of memory".format(cpu_b * y.value, mem_b * y.value))
