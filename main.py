@@ -54,8 +54,8 @@ x = cp.Variable(integer=True) # number of tasks for User A
 y = cp.Variable(integer=True) # number of tasks for User B
 
 # Find dominant shares
-dom_share_a = mem_a / num_mems
-dom_share_b = cpu_b / num_cpus
+dom_share_a = max(mem_a / num_mems, cpu_a / num_cpus)
+dom_share_b = max(mem_b / num_mems, cpu_b / num_cpus)
 print("Dominant share for User A:", dom_share_a)
 print("Dominant share for User B:", dom_share_b)
 
