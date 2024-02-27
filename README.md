@@ -2,6 +2,12 @@
 
 DRF does not satisfy the property of resource monotonicity. Resource monotonicity means that if more resources are added to the system, none of the allocations of the existing users should decrease. In other words, adding more resources to the system should not negatively impact the allocation of any user​.
 
+## Setup
+
+```bash
+pip3 install -r requirements.txt
+```
+
 ## Scenario 1
 
 ```bash
