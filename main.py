@@ -38,8 +38,13 @@ import cvxpy as cp
 import argparse
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-c", "--num_cpus", required=True, help="CPU demand for User A", type=int)
-ap.add_argument("-m", "--num_mems", required=True, help="Memory demand for User A", type=int)
+ap.add_argument("-c", "--num_cpus", required=True, help="CPU cores available", type=int)
+ap.add_argument("-m", "--num_mems", required=True, help="Memory GB available", type=int)
+ap.add_argument("-t", "--tolerance", required=False, help="Tolerance", type=float, default=0.1)
+ap.add_argument("--cpu_a", required=False, help="CPU cores per task for User A", type=int, default=1)
+ap.add_argument("--mem_a", required=False, help="Memory GB per task for User A", type=int, default=4)
+ap.add_argument("--cpu_b", required=False, help="CPU cores per task for User B", type=int, default=3)
+ap.add_argument("--mem_b", required=False, help="Memory GB per task for User B", type=int, default=1)
 args = ap.parse_args()
 
 
@@ -48,13 +53,13 @@ num_cpus = args.num_cpus # core
 num_mems = args.num_mems # GB
 
 # Define the users' resource demands per task
-cpu_a = 1
-mem_a = 4
-cpu_b = 3
-mem_b = 1
+cpu_a = args.cpu_a
+mem_a = args.mem_a
+cpu_b = args.cpu_b
+mem_b = args.mem_b
 
 # tolerance
-tol = 0.1
+tol = args.tolerance
 
 # Define the variables
 x = cp.Variable(integer=True) # number of tasks for User A
